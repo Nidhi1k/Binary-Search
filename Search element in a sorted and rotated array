@@ -1,0 +1,82 @@
+// C++ program to find  an element in a sorted and rotated array
+ 
+#include <bits/stdc++.h>
+using namespace std;
+
+ int getPivot(int arr[],int n)
+ {
+     int s=0;//starting index in array
+     int e=n-1;//ending index in array
+     
+     while(s<e)
+     { int mid=s+(e-s)/2;
+         if(arr[mid]>=arr[0])
+         {
+             s=mid+1;
+         }
+         else
+         {
+             e=mid;//beacause in case of (mid-1) e will jump before pivot element if pivot is at mid
+         }
+     }
+     return s;//we can return e if we want instead of s it does not matter
+ }
+ 
+int binarySearch(int arr[],int l,int r,int key)
+{
+
+    int mid;
+    int pos=0;
+    while(l<=r)
+    {    //update mid
+        mid=l+(r-l)/2; 
+
+        if(arr[mid]==key)
+        {
+            return mid;
+        }
+        else if(key>arr[mid])
+        {
+            l=mid+1;
+        }
+        else if(key<arr[mid])
+        {
+            r=mid-1;
+        }
+
+
+    }
+
+    return -1;
+}
+
+int SearchPosition(int arr[],int n,int k)
+{
+    int pivot=getPivot(arr,n);
+    if(k>=arr[pivot]&&k<=arr[n-1])//lies on second line
+    {
+        //binary search on 2nd line
+        return  binarySearch(arr,pivot,n-1,k);
+    }
+    else
+    {
+        //binary search on 1st line
+         return  binarySearch(arr,0,pivot-1,k);
+    }
+}
+int main()
+{
+    
+   int arr[5]={3,8,10,17,1};
+    // //test
+    //   int arr[5]={10,1,2,3,4};
+    
+    cout<<"Position"<< SearchPosition(arr,5,17);
+    
+ 
+
+	return 0;
+}
+
+
+ 
