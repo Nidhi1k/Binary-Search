@@ -1,0 +1,39 @@
+ // C++ program to find  pivot element in a sorted and rotated array
+ 
+#include <bits/stdc++.h>
+using namespace std;
+
+ int getPivot(int arr[],int n)
+ {
+     int s=0;//starting index in array
+     int e=n-1;//ending index in array
+     
+     while(s<e)
+     { int mid=s+(e-s)/2;
+         if(arr[mid]>=arr[0])
+         {
+             s=mid+1;
+         }
+         else
+         {
+             e=mid;//beacause in case of (mid-1) e will jump before pivot element if pivot is at mid
+         }
+     }
+     return s;//we can return e if we want instead of s it does not matter
+ }
+int main()
+{
+    
+   int arr[5]={10,11,12,13,1};
+    // //test
+    //   int arr[5]={10,1,2,3,4};
+    
+    cout<<"Pivot is at ="<< getPivot(arr,5);
+    
+ 
+
+	return 0;
+}
+
+
+ 
